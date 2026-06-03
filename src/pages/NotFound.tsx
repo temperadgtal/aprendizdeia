@@ -9,7 +9,7 @@ const NotFound = () => {
   const [countdown, setCountdown] = useState(15);
 
   useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    console.error("404: rota inexistente:", location.pathname);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const NotFound = () => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          navigate("/dashboard");
+          navigate("/");
           return 0;
         }
         return prev - 1;
@@ -26,53 +26,34 @@ const NotFound = () => {
     return () => clearInterval(timer);
   }, [navigate]);
 
-  const wittyLines = [
-    "Looks like this deal fell out of the pipeline.",
-    "This page ghosted us harder than a cold lead.",
-    "We searched every stage of the funnel. Nothing.",
-    "Even our best sales rep couldn't close this page.",
-  ];
-
-  const randomLine = wittyLines[Math.floor(Math.random() * wittyLines.length)];
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="text-center max-w-lg space-y-6">
-        <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-primary/10">
+      <div className="max-w-lg space-y-6 text-center">
+        <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-primary-soft">
           <SearchX className="h-12 w-12 text-primary" />
         </div>
 
         <div className="space-y-2">
-          <h1
-            className="text-7xl font-bold text-primary"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            404
-          </h1>
-          <p className="text-xl font-medium text-foreground">Page Not Found</p>
+          <h1 className="text-7xl font-bold text-primary">404</h1>
+          <p className="text-xl font-medium text-foreground">Página não encontrada</p>
         </div>
 
-        <p className="text-muted-foreground text-lg italic">"{randomLine}"</p>
+        <p className="text-lg italic text-muted-foreground">
+          "Essa página ainda não faz parte da minha trilha de estudos."
+        </p>
 
         <p className="text-sm text-muted-foreground">
-          Redirecting to your dashboard in{" "}
-          <span className="font-semibold text-primary">{countdown}s</span>
+          Voltando ao início em <span className="font-semibold text-primary">{countdown}s</span>
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Button onClick={() => navigate(-1)} variant="outline" className="gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            Go Back
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Button onClick={() => navigate(-1)} variant="outline" className="gap-2 rounded-full">
+            <ArrowLeft className="h-4 w-4" /> Voltar
           </Button>
-          <Button onClick={() => navigate("/dashboard")} className="gap-2">
-            <Home className="h-4 w-4" />
-            Dashboard
+          <Button onClick={() => navigate("/")} className="gap-2 rounded-full">
+            <Home className="h-4 w-4" /> Início
           </Button>
         </div>
-
-        <p className="text-xs text-muted-foreground/60">
-          Tried to reach: <code className="rounded bg-muted px-1.5 py-0.5">{location.pathname}</code>
-        </p>
       </div>
     </div>
   );
