@@ -6,48 +6,52 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "next-themes";
 
-import { AppLayout } from "@/components/AppLayout";
+import { SiteLayout } from "@/components/SiteLayout";
+import { AdminLayout } from "@/components/AdminLayout";
+
+import Home from "./pages/Home";
+import Tracks from "./pages/Tracks";
+import Platforms from "./pages/Platforms";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import News from "./pages/News";
 import Auth from "./pages/Auth";
-import Landing from "./pages/Landing";
-import Index from "./pages/Index";
-import Pipeline from "./pages/Pipeline";
-import Contacts from "./pages/Contacts";
-import Companies from "./pages/Companies";
-import Activities from "./pages/Activities";
-import Forecast from "./pages/Forecast";
-import Reports from "./pages/Reports";
-import Settings from "./pages/Settings";
-import DataImportExport from "./pages/DataImportExport";
-import Tasks from "./pages/Tasks";
-import CalendarView from "./pages/CalendarView";
 import NotFound from "./pages/NotFound";
+
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminTracks from "./pages/admin/AdminTracks";
+import AdminPosts from "./pages/admin/AdminPosts";
+import AdminPlatforms from "./pages/admin/AdminPlatforms";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <AuthProvider>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route element={<AppLayout />}>
-                <Route path="/dashboard" element={<Index />} />
-                <Route path="/pipeline" element={<Pipeline />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/companies" element={<Companies />} />
-                <Route path="/activities" element={<Activities />} />
-                <Route path="/forecast" element={<Forecast />} />
-                <Route path="/reports" element={<Reports />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/data" element={<DataImportExport />} />
-                <Route path="/tasks" element={<Tasks />} />
-                <Route path="/calendar" element={<CalendarView />} />
+              <Route element={<SiteLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/trilhas" element={<Tracks />} />
+                <Route path="/plataformas" element={<Platforms />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/noticias" element={<News />} />
               </Route>
+
+              <Route path="/auth" element={<Auth />} />
+
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="trilhas" element={<AdminTracks />} />
+                <Route path="posts" element={<AdminPosts />} />
+                <Route path="plataformas" element={<AdminPlatforms />} />
+              </Route>
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
