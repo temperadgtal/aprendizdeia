@@ -136,13 +136,13 @@ async function fetchHackerNews(): Promise<NewsItem[]> {
 
 const BR_FEEDS: { url: string; source: string }[] = [
   { url: 'https://canaltech.com.br/rss/', source: 'Canaltech' },
-  { url: 'https://www.tecmundo.com.br/rss', source: 'TecMundo' },
   { url: 'https://olhardigital.com.br/feed/', source: 'Olhar Digital' },
   { url: 'https://tecnoblog.net/feed/', source: 'Tecnoblog' },
   { url: 'https://www.mundoconectado.com.br/feed/', source: 'Mundo Conectado' },
   { url: 'https://gizmodo.uol.com.br/feed/', source: 'Gizmodo Brasil' },
   { url: 'https://itforum.com.br/feed/', source: 'IT Forum' },
   { url: 'https://startups.com.br/feed/', source: 'Startups' },
+  { url: 'https://convergenciadigital.com.br/feed/', source: 'Convergência Digital' },
 ]
 
 Deno.serve(async (req) => {
