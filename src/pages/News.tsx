@@ -1,6 +1,8 @@
+import { useState, useMemo } from "react";
 import { ExternalLink, RefreshCw, Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTechNews } from "@/hooks/useSiteData";
 
 function timeAgo(iso: string | null) {
@@ -13,16 +15,25 @@ function timeAgo(iso: string | null) {
   return `há ${d}d`;
 }
 
+type Filter = "all" | "br" | "global";
+
 export default function News() {
   const { data: news, isLoading, isFetching, refetch } = useTechNews();
+  const [filter, setFilter] = useState<Filter>("all");
+
+  const filtered = useMemo(() => {
+    const items = news ?? [];
+    if (filter === "all") return items;
+    return items.filter((i) => (i.region ?? "global") === filter);
+  }, [news, filter]);
 
   return (
     <div className="container py-12 md:py-16">
-      <header className="mb-8 flex items-end justify-between gap-4">
+      <header className="mb-6 flex items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold md:text-4xl text-balance">Notícias TEC</h1>
           <p className="mt-2 text-muted-foreground">
-            O que está rolando no mundo da tecnologia, atualizado automaticamente.
+            O que está rolando no mundo da tecnologia, do Brasil e do mundo, atualizado automaticamente.
           </p>
         </div>
         <Button variant="outline" size="sm" className="rounded-full" onClick={() => refetch()} disabled={isFetching}>
@@ -30,13 +41,23 @@ export default function News() {
         </Button>
       </header>
 
+      <Tabs value={filter} onValueChange={(v) => setFilter(v as Filter)} className="mb-8">
+        <TabsList className="rounded-full">
+          <TabsTrigger value="all" className="rounded-full">Todas</TabsTrigger>
+          <TabsTrigger value="br" className="rounded-full">🇧🇷 Brasil</TabsTrigger>
+          <TabsTrigger value="global" className="rounded-full">🌎 Internacional</TabsTrigger>
+        </TabsList>
+      </Tabs>
+
       {isLoading ? (
         <div className="flex min-h-[40vh] items-center justify-center">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
+      ) : filtered.length === 0 ? (
+        <p className="py-16 text-center text-muted-foreground">Nenhuma notícia encontrada para este filtro.</p>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
-          {(news ?? []).map((item) => (
+          {filtered.map((item) => (
             <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className="group">
               <Card className="h-full transition-shadow hover:shadow-md">
                 <CardContent className="flex h-full gap-4 p-4">
@@ -46,6 +67,9 @@ export default function News() {
                   <div className="flex min-w-0 flex-col">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       <span className="rounded-full bg-secondary px-2 py-0.5 font-medium">{item.source}</span>
+                      {(item.region ?? "global") === "br" && (
+                        <span className="rounded-full bg-primary-soft px-2 py-0.5 font-medium text-primary">PT-BR</span>
+                      )}
                       <span>{timeAgo(item.publishedAt)}</span>
                     </div>
                     <h3 className="mt-1.5 font-semibold leading-snug group-hover:text-primary">{item.title}</h3>
