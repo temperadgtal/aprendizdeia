@@ -40,6 +40,8 @@ export interface Platform {
   updated_at: string;
 }
 
+export type NewsRegion = "global" | "br";
+
 export interface NewsItem {
   id: string;
   title: string;
@@ -49,6 +51,7 @@ export interface NewsItem {
   author: string | null;
   image: string | null;
   publishedAt: string | null;
+  region?: NewsRegion;
 }
 
 export const STATUS_LABELS: Record<TrackStatus, string> = {
