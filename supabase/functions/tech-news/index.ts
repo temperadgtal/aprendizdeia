@@ -46,7 +46,11 @@ function extractImage(block: string): string | null {
 async function fetchRss(url: string, source: string): Promise<NewsItem[]> {
   try {
     const res = await fetch(url, {
-      headers: { 'Accept': 'application/rss+xml, application/xml, text/xml', 'User-Agent': 'Mozilla/5.0 (compatible; AprendizBot/1.0)' },
+      headers: {
+        'Accept': 'application/rss+xml, application/xml, text/xml, */*',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+      },
+      redirect: 'follow',
     })
     if (!res.ok) return []
     const xml = await res.text()
