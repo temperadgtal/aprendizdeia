@@ -1,6 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import type { LearningTrack, Post, Platform, NewsItem } from "@/lib/site-types";
+import type { LearningTrack, Post, Platform, NewsItem, VideoChannel } from "@/lib/site-types";
+
+export function useVideoChannels() {
+  return useQuery({
+    queryKey: ["video_channels"],
+    queryFn: async (): Promise<VideoChannel[]> => {
+      const { data, error } = await supabase
+        .from("video_channels")
+        .select("*")
+        .order("position", { ascending: true });
+      if (error) throw error;
+      return (data ?? []) as VideoChannel[];
+    },
+  });
+}
+
 
 export function useTracks() {
   return useQuery({

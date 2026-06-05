@@ -40,7 +40,35 @@ export interface Platform {
   updated_at: string;
 }
 
+export type VideoCategory = "noticias" | "programacao" | "cursos" | "ia";
+
+export interface VideoChannel {
+  id: string;
+  name: string;
+  url: string | null;
+  category: VideoCategory;
+  description: string | null;
+  position: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export const VIDEO_CATEGORY_LABELS: Record<VideoCategory, string> = {
+  noticias: "Notícias e Cultura Tech",
+  programacao: "Programação e Desenvolvimento",
+  cursos: "Cursos e Plataformas de Ensino",
+  ia: "Inteligência Artificial e Dados",
+};
+
+export const VIDEO_CATEGORY_OPTIONS: { value: VideoCategory; label: string }[] = [
+  { value: "noticias", label: "Notícias e Cultura Tech" },
+  { value: "programacao", label: "Programação e Desenvolvimento" },
+  { value: "cursos", label: "Cursos e Plataformas de Ensino" },
+  { value: "ia", label: "Inteligência Artificial e Dados" },
+];
+
 export type NewsRegion = "global" | "br";
+
 
 export interface NewsItem {
   id: string;

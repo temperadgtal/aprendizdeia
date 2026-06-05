@@ -15,6 +15,7 @@ import Platforms from "./pages/Platforms";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import News from "./pages/News";
+import Videos from "./pages/Videos";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminTracks from "./pages/admin/AdminTracks";
 import AdminPosts from "./pages/admin/AdminPosts";
 import AdminPlatforms from "./pages/admin/AdminPlatforms";
+import AdminVideos from "./pages/admin/AdminVideos";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +43,7 @@ const App = () => (
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/noticias" element={<News />} />
+                <Route path="/videos" element={<Videos />} />
               </Route>
 
               <Route path="/auth" element={<Auth />} />
@@ -50,6 +53,7 @@ const App = () => (
                 <Route path="trilhas" element={<AdminTracks />} />
                 <Route path="posts" element={<AdminPosts />} />
                 <Route path="plataformas" element={<AdminPlatforms />} />
+                <Route path="videos" element={<AdminVideos />} />
               </Route>
 
               <Route path="*" element={<NotFound />} />

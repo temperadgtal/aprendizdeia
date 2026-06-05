@@ -3,13 +3,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, GraduationCap, FileText, Link2, LogOut, Loader2, ExternalLink } from "lucide-react";
+import { LayoutDashboard, GraduationCap, FileText, Link2, LogOut, Loader2, ExternalLink, Youtube } from "lucide-react";
 
 const adminNav = [
   { to: "/admin", label: "Visão geral", icon: LayoutDashboard, end: true },
   { to: "/admin/trilhas", label: "Trilhas", icon: GraduationCap },
   { to: "/admin/posts", label: "Blog", icon: FileText },
   { to: "/admin/plataformas", label: "Plataformas", icon: Link2 },
+  { to: "/admin/videos", label: "Vídeos", icon: Youtube },
 ];
 
 export function AdminLayout() {
