@@ -15,6 +15,7 @@ import Platforms from "./pages/Platforms";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import News from "./pages/News";
+import Videos from "./pages/Videos";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
