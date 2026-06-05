@@ -135,15 +135,88 @@ async function fetchHackerNews(): Promise<NewsItem[]> {
 }
 
 const BR_FEEDS: { url: string; source: string }[] = [
-  { url: 'https://canaltech.com.br/rss/', source: 'Canaltech' },
   { url: 'https://olhardigital.com.br/feed/', source: 'Olhar Digital' },
   { url: 'https://tecnoblog.net/feed/', source: 'Tecnoblog' },
   { url: 'https://www.mundoconectado.com.br/feed/', source: 'Mundo Conectado' },
-  { url: 'https://gizmodo.uol.com.br/feed/', source: 'Gizmodo Brasil' },
   { url: 'https://itforum.com.br/feed/', source: 'IT Forum' },
   { url: 'https://startups.com.br/feed/', source: 'Startups' },
   { url: 'https://convergenciadigital.com.br/feed/', source: 'Convergência Digital' },
 ]
+
+// Sites that block server-side RSS/fetch — scraped via Firecrawl instead.
+const FIRECRAWL_SOURCES: { url: string; source: string }[] = [
+  { url: 'https://canaltech.com.br/', source: 'Canaltech' },
+  { url: 'https://www.tecmundo.com.br/novidades', source: 'TecMundo' },
+  { url: 'https://gizmodo.uol.com.br/', source: 'Gizmodo Brasil' },
+]
+
+async function fetchFirecrawl(url: string, source: string): Promise<NewsItem[]> {
+  const apiKey = Deno.env.get('FIRECRAWL_API_KEY')
+  if (!apiKey) return []
+  try {
+    const res = await fetch('https://api.firecrawl.dev/v2/scrape', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url,
+        onlyMainContent: true,
+        formats: [
+          {
+            type: 'json',
+            prompt:
+              'Extract the most recent tech news articles from this page. Return an array "articles" with objects containing: title, url (absolute), description (short summary), image (absolute image URL if any). Max 8 articles.',
+            schema: {
+              type: 'object',
+              properties: {
+                articles: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      title: { type: 'string' },
+                      url: { type: 'string' },
+                      description: { type: 'string' },
+                      image: { type: 'string' },
+                    },
+                    required: ['title', 'url'],
+                  },
+                },
+              },
+              required: ['articles'],
+            },
+          },
+        ],
+      }),
+    })
+    if (!res.ok) return []
+    const data = await res.json()
+    const articles = (data?.data?.json?.articles ?? data?.json?.articles ?? []) as Array<{
+      title?: string
+      url?: string
+      description?: string
+      image?: string
+    }>
+    return articles
+      .filter((a) => a.title && a.url)
+      .slice(0, 8)
+      .map((a, idx) => ({
+        id: `fc-${source}-${idx}-${String(a.url).slice(-24)}`,
+        title: String(a.title),
+        url: String(a.url),
+        description: a.description ? String(a.description).slice(0, 220) : '',
+        source,
+        author: null,
+        image: a.image ? String(a.image) : null,
+        publishedAt: null,
+        region: 'br' as Region,
+      }))
+  } catch (_e) {
+    return []
+  }
+}
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -152,9 +225,10 @@ Deno.serve(async (req) => {
 
   try {
     const brResults = await Promise.all(BR_FEEDS.map((f) => fetchRss(f.url, f.source)))
+    const fcResults = await Promise.all(FIRECRAWL_SOURCES.map((f) => fetchFirecrawl(f.url, f.source)))
     const [devto, hn] = await Promise.all([fetchDevTo(), fetchHackerNews()])
 
-    const items = [...brResults.flat(), ...devto, ...hn].sort((a, b) => {
+    const items = [...brResults.flat(), ...fcResults.flat(), ...devto, ...hn].sort((a, b) => {
       const ta = a.publishedAt ? Date.parse(a.publishedAt) : 0
       const tb = b.publishedAt ? Date.parse(b.publishedAt) : 0
       return tb - ta
