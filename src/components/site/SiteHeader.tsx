@@ -11,6 +11,7 @@ const links = [
   { to: "/plataformas", label: "Plataformas" },
   { to: "/blog", label: "Blog" },
   { to: "/noticias", label: "Notícias TEC" },
+  { to: "/videos", label: "Vídeos" },
 ];
 
 export function SiteHeader() {
