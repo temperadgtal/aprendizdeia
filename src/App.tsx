@@ -53,6 +53,7 @@ const App = () => (
                 <Route path="trilhas" element={<AdminTracks />} />
                 <Route path="posts" element={<AdminPosts />} />
                 <Route path="plataformas" element={<AdminPlatforms />} />
+                <Route path="videos" element={<AdminVideos />} />
               </Route>
 
               <Route path="*" element={<NotFound />} />
