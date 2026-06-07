@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, GraduationCap, Newspaper, BookOpen } from "lucide-react";
+import { ArrowRight, GraduationCap, Newspaper, BookOpen, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { TrackCard } from "@/components/site/TrackCard";
 import { useTracks, usePosts } from "@/hooks/useSiteData";
+import heroImage from "@/assets/estudando-avatar.jpg.asset.json";
 
 export default function Home() {
   const { data: tracks } = useTracks();
@@ -16,11 +17,20 @@ export default function Home() {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden border-b">
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{ backgroundImage: "var(--gradient-hero)" }}
-        />
-        <div className="container relative py-20 md:py-28">
+        {/* Background image on the right side */}
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-full md:w-3/5">
+          <img
+            src={heroImage.url}
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-center opacity-60 md:opacity-100"
+          />
+          {/* Gradient fade so text stays legible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30 md:via-background/70 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+        </div>
+
+        <div className="container relative py-20 md:py-32">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1 text-sm font-medium text-accent-foreground">
             <GraduationCap className="h-4 w-4" /> Diário de estudos em programação
           </p>
@@ -31,12 +41,15 @@ export default function Home() {
             Aqui eu registro minhas trilhas de estudo, compartilho posts no blog e acompanho
             as notícias do mundo da tecnologia. Tudo em um lugar só.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="rounded-full">
               <Link to="/trilhas">Ver minhas trilhas <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="rounded-full">
               <Link to="/plataformas">Minhas plataformas</Link>
+            </Button>
+            <Button asChild size="lg" variant="ghost" className="rounded-full">
+              <Link to="/videos"><Play className="mr-1 h-4 w-4" /> Ver últimos vídeos</Link>
             </Button>
           </div>
         </div>
