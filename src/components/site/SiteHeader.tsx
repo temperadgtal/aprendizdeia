@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -44,12 +44,6 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
-          <Button asChild variant="outline" size="sm" className="rounded-full">
-            <Link to="/admin">Painel</Link>
-          </Button>
-        </div>
-
         <button
           className="md:hidden p-2 text-foreground"
           onClick={() => setOpen((o) => !o)}
@@ -76,15 +70,8 @@ export function SiteHeader() {
                 }
               >
                 {l.label}
-              </NavLink>
-            ))}
-            <NavLink
-              to="/admin"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-4 py-2.5 text-sm font-medium text-foreground"
-            >
-              Painel
             </NavLink>
+            ))}
           </nav>
         </div>
       )}
