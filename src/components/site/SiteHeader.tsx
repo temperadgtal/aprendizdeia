@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, Map, LayoutGrid, BookOpen, Newspaper, Play } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 import { cn } from "@/lib/utils";
 
 const links = [
-  { to: "/", label: "Início", end: true },
-  { to: "/trilhas", label: "Trilhas" },
-  { to: "/plataformas", label: "Plataformas" },
-  { to: "/blog", label: "Blog" },
-  { to: "/noticias", label: "Notícias TEC" },
-  { to: "/videos", label: "Vídeos" },
+  { to: "/", label: "Início", end: true, icon: Home },
+  { to: "/trilhas", label: "Trilhas", icon: Map },
+  { to: "/plataformas", label: "Plataformas", icon: LayoutGrid },
+  { to: "/blog", label: "Blog", icon: BookOpen },
+  { to: "/noticias", label: "Notícias TEC", icon: Newspaper },
+  { to: "/videos", label: "Vídeos", icon: Play },
 ];
 
 export function SiteHeader() {
@@ -25,23 +25,27 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.end}
-              className={({ isActive }) =>
-                cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-primary-soft text-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )
-              }
-            >
-              {l.label}
-            </NavLink>
-          ))}
+          {links.map((l) => {
+            const Icon = l.icon;
+            return (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.end}
+                className={({ isActive }) =>
+                  cn(
+                    "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                    isActive
+                      ? "bg-primary-soft text-accent-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                  )
+                }
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {l.label}
+              </NavLink>
+            );
+          })}
         </nav>
 
         <button
@@ -56,22 +60,26 @@ export function SiteHeader() {
       {open && (
         <div className="border-t bg-background md:hidden">
           <nav className="container flex flex-col gap-1 py-3">
-            {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.end}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  cn(
-                    "rounded-lg px-4 py-2.5 text-sm font-medium",
-                    isActive ? "bg-primary-soft text-accent-foreground" : "text-foreground"
-                  )
-                }
-              >
-                {l.label}
-            </NavLink>
-            ))}
+            {links.map((l) => {
+              const Icon = l.icon;
+              return (
+                <NavLink
+                  key={l.to}
+                  to={l.to}
+                  end={l.end}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm font-medium",
+                      isActive ? "bg-primary-soft text-accent-foreground" : "text-foreground"
+                    )
+                  }
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  {l.label}
+                </NavLink>
+              );
+            })}
           </nav>
         </div>
       )}
