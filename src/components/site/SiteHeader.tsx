@@ -70,7 +70,8 @@ export function SiteHeader() {
                 }
               >
                 {l.label}
-              </NavLink>
+            </NavLink>
+            ))}
           </nav>
         </div>
       )}
