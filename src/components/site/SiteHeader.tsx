@@ -44,12 +44,6 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
-          <Button asChild variant="outline" size="sm" className="rounded-full">
-            <Link to="/admin">Painel</Link>
-          </Button>
-        </div>
-
         <button
           className="md:hidden p-2 text-foreground"
           onClick={() => setOpen((o) => !o)}
