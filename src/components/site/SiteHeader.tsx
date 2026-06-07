@@ -71,14 +71,6 @@ export function SiteHeader() {
               >
                 {l.label}
               </NavLink>
-            ))}
-            <NavLink
-              to="/admin"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-4 py-2.5 text-sm font-medium text-foreground"
-            >
-              Painel
-            </NavLink>
           </nav>
         </div>
       )}
