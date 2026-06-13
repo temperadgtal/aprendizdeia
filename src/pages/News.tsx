@@ -85,7 +85,7 @@ export default function News() {
                   </CardContent>
                 </Card>
               </a>
-              <div className="absolute bottom-3 right-3">
+              <div className="absolute bottom-3 right-3 z-10">
                 <SocialShare
                   url={item.url}
                   title={item.title}
