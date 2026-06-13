@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePost } from "@/hooks/useSiteData";
+import SocialShare from "@/components/site/SocialShare";
 
 function formatDate(d: string | null) {
   if (!d) return "";
