@@ -39,7 +39,7 @@ export default function Blog() {
                 </CardContent>
               </Card>
             </Link>
-            <div className="absolute bottom-3 right-3">
+            <div className="absolute bottom-3 right-3 z-10">
               <SocialShare
                 url={`/blog/${p.slug}`}
                 title={p.title}
