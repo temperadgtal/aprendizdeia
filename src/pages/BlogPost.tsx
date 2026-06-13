@@ -51,6 +51,15 @@ export default function BlogPost() {
           {post.content}
         </div>
       )}
+
+      <div className="mt-10 flex items-center gap-3 border-t pt-6">
+        <span className="text-sm text-muted-foreground">Compartilhar:</span>
+        <SocialShare
+          url={window.location.href}
+          title={post.title}
+          description={post.excerpt ?? undefined}
+        />
+      </div>
     </article>
   );
 }
