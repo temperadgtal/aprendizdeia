@@ -26,7 +26,8 @@ export default function Blog() {
       ) : (posts ?? []).length > 0 ? (
         <div className="grid gap-5 md:grid-cols-2">
           {(posts ?? []).map((p) => (
-            <Link key={p.id} to={`/blog/${p.slug}`}>
+          <div key={p.id} className="relative">
+            <Link to={`/blog/${p.slug}`}>
               <Card className="h-full transition-shadow hover:shadow-md">
                 {p.cover_url && (
                   <img src={p.cover_url} alt={p.title} className="h-44 w-full rounded-t-xl object-cover" loading="lazy" />
@@ -38,6 +39,15 @@ export default function Blog() {
                 </CardContent>
               </Card>
             </Link>
+            <div className="absolute bottom-3 right-3">
+              <SocialShare
+                url={`/blog/${p.slug}`}
+                title={p.title}
+                description={p.excerpt ?? undefined}
+                compact
+              />
+            </div>
+          </div>
           ))}
         </div>
       ) : (
