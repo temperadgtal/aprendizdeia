@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTechNews } from "@/hooks/useSiteData";
+import SocialShare from "@/components/site/SocialShare";
 
 function timeAgo(iso: string | null) {
   if (!iso) return "";
@@ -58,31 +59,41 @@ export default function News() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {filtered.map((item) => (
-            <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className="group">
-              <Card className="h-full transition-shadow hover:shadow-md">
-                <CardContent className="flex h-full gap-4 p-4">
-                  {item.image && (
-                    <img src={item.image} alt="" className="h-20 w-28 shrink-0 rounded-lg object-cover" loading="lazy" />
-                  )}
-                  <div className="flex min-w-0 flex-col">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="rounded-full bg-secondary px-2 py-0.5 font-medium">{item.source}</span>
-                      {(item.region ?? "global") === "br" && (
-                        <span className="rounded-full bg-primary-soft px-2 py-0.5 font-medium text-primary">PT-BR</span>
-                      )}
-                      <span>{timeAgo(item.publishedAt)}</span>
-                    </div>
-                    <h3 className="mt-1.5 font-semibold leading-snug group-hover:text-primary">{item.title}</h3>
-                    {item.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
+            <div key={item.id} className="relative">
+              <a href={item.url} target="_blank" rel="noopener noreferrer" className="group">
+                <Card className="h-full transition-shadow hover:shadow-md">
+                  <CardContent className="flex h-full gap-4 p-4">
+                    {item.image && (
+                      <img src={item.image} alt="" className="h-20 w-28 shrink-0 rounded-lg object-cover" loading="lazy" />
                     )}
-                    <span className="mt-auto inline-flex items-center gap-1 pt-2 text-xs font-medium text-primary">
-                      Ler matéria <ExternalLink className="h-3 w-3" />
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            </a>
+                    <div className="flex min-w-0 flex-col">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span className="rounded-full bg-secondary px-2 py-0.5 font-medium">{item.source}</span>
+                        {(item.region ?? "global") === "br" && (
+                          <span className="rounded-full bg-primary-soft px-2 py-0.5 font-medium text-primary">PT-BR</span>
+                        )}
+                        <span>{timeAgo(item.publishedAt)}</span>
+                      </div>
+                      <h3 className="mt-1.5 font-semibold leading-snug group-hover:text-primary">{item.title}</h3>
+                      {item.description && (
+                        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{item.description}</p>
+                      )}
+                      <span className="mt-auto inline-flex items-center gap-1 pt-2 text-xs font-medium text-primary">
+                        Ler matéria <ExternalLink className="h-3 w-3" />
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+              <div className="absolute bottom-3 right-3 z-10">
+                <SocialShare
+                  url={item.url}
+                  title={item.title}
+                  description={item.description ?? undefined}
+                  compact
+                />
+              </div>
+            </div>
           ))}
         </div>
       )}
