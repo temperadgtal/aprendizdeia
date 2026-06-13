@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Linkedin, Twitter, Mail, Link2, Check, Share2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 
 interface SocialShareProps {
   url: string;
