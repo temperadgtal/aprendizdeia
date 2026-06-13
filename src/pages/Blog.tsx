@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePosts } from "@/hooks/useSiteData";
+import SocialShare from "@/components/site/SocialShare";
 
 function formatDate(d: string | null) {
   if (!d) return "";

@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTechNews } from "@/hooks/useSiteData";
+import SocialShare from "@/components/site/SocialShare";
 
 function timeAgo(iso: string | null) {
   if (!iso) return "";
