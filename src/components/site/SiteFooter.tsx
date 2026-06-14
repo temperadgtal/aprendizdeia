@@ -1,4 +1,5 @@
 import { Logo } from "@/components/Logo";
+import blogDevAvatar from "@/assets/blogdodev-avatar.png.asset.json";
 
 export function SiteFooter() {
   return (
@@ -13,6 +14,21 @@ export function SiteFooter() {
             © {new Date().getFullYear()} Estudando todos os dias.
           </p>
         </div>
+        <a
+          href="https://blogdodev.fguerra.ia.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground hover:bg-secondary/80 transition-colors"
+        >
+          <span className="h-6 w-6 overflow-hidden rounded-full ring-2 ring-primary/20">
+            <img
+              src={blogDevAvatar.url}
+              alt="Blog do Dev"
+              className="h-full w-full object-cover"
+            />
+          </span>
+          Visite também o Blog do Dev
+        </a>
       </div>
     </footer>
   );
