@@ -88,7 +88,28 @@ export default function Home() {
       </section>
 
       {/* Atalhos */}
-      <section className="container grid gap-5 pb-16 md:grid-cols-2">
+      <section className="container grid gap-5 pb-16 md:grid-cols-3">
+        <a
+          href="https://devalexandre.fguerra.ia.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group"
+        >
+          <Card className="h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+            <CardContent className="flex items-center gap-4 p-6">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-soft text-primary transition-transform group-hover:scale-110">
+                <User className="h-6 w-6" />
+              </span>
+              <div className="min-w-0">
+                <h3 className="flex items-center gap-1.5 text-lg font-semibold">
+                  Alexandre Guerra
+                  <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                </h3>
+                <p className="text-sm text-muted-foreground">Página de apresentação do desenvolvedor.</p>
+              </div>
+            </CardContent>
+          </Card>
+        </a>
         <Link to="/blog" className="group">
           <Card className="h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
             <CardContent className="flex items-center gap-4 p-6">
