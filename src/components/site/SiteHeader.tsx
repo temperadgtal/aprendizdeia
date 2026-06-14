@@ -2,8 +2,8 @@ import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Menu, X, Home, Map, LayoutGrid, BookOpen, Newspaper, Play } from "lucide-react";
 import { Logo } from "@/components/Logo";
-
 import { cn } from "@/lib/utils";
+import blogDevAvatar from "@/assets/blogdodev-avatar.png.asset.json";
 
 const links = [
   { to: "/", label: "Início", end: true, icon: Home },
