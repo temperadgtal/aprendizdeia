@@ -48,6 +48,23 @@ export function SiteHeader() {
           })}
         </nav>
 
+        <a
+          href="https://blogdodev.fguerra.ia.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
+          title="Blog do Dev"
+        >
+          <span className="h-7 w-7 overflow-hidden rounded-full ring-2 ring-primary/20">
+            <img
+              src={blogDevAvatar.url}
+              alt="Blog do Dev"
+              className="h-full w-full object-cover"
+            />
+          </span>
+          Blog do Dev
+        </a>
+
         <button
           className="md:hidden p-2 text-foreground"
           onClick={() => setOpen((o) => !o)}
@@ -80,6 +97,21 @@ export function SiteHeader() {
                 </NavLink>
               );
             })}
+            <a
+              href="https://blogdodev.fguerra.ia.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-sm font-medium text-foreground hover:bg-secondary/60"
+            >
+              <span className="h-7 w-7 overflow-hidden rounded-full ring-2 ring-primary/20 shrink-0">
+                <img
+                  src={blogDevAvatar.url}
+                  alt="Blog do Dev"
+                  className="h-full w-full object-cover"
+                />
+              </span>
+              Blog do Dev
+            </a>
           </nav>
         </div>
       )}
